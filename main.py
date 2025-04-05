@@ -1,4 +1,7 @@
 import random
+from dataclasses import field
+
+from settings import *
 class Tiger:
     def __init__(self):
         self.x = 0
@@ -40,6 +43,62 @@ class Hare:
         self.mod = False
     def change_condition(self):
         self.mod = True
+
+
+class Field:
+    def __init__(self,  tiger, hares):
+        self.wides = WIDES
+        self.heights = HEIGTS
+        self.tiger = tiger
+        self.hares = hares
+
+
+
+    def field_display(self):
+        f= []
+        for i in range(5):
+            row = []
+            for j in range(5):
+                row.append('.')
+            f.append(row)
+        f[self.tiger.y][self.tiger.x] = "T"
+        for hare in self.hares:
+            if  not hare.mod:
+                f[hare.y][hare.x] = "Z"
+        for row in f:
+            print(*row)
+
+
+class Game:
+    def __init__(self):
+        self.tiger = Tiger()
+        self.hares = []
+        self.__add_hares()
+        self.field = Field(self.tiger, self.hares)
+        self.field.field_display()
+
+    def __add_hares(self):
+        for i in range(2):
+            while True:
+                hare = Hare()
+                if hare.y == 1 and hare.x == 1:
+                    continue
+                flag = True
+                for hare2 in self.hares:
+                    if hare2.x == hare.x and hare2.y == hare.y:
+                        flag = False
+                if flag:
+                    self.hares.append(hare)
+                    break
+
+
+if __name__ == '__main__':
+    Game()
+
+
+
+
+
 
 
 

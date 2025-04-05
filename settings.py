@@ -1,0 +1,2 @@
+WIDES = 5
+HEIGTS = 5
