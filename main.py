@@ -17,13 +17,14 @@ class Tiger:
             for hare in hares:
                 if self.is_near_hare(hare):
                     self.mod = "Атаковать добычу!"
-        elif self.mod =="Атаковать добычу":
+        elif self.mod =="Атаковать добычу!":
             print("Тигр атакует добычу!")
             if random.random() < 0.5:
                 print("Заяц повержен!")
                 for hare in hares:
                     if self.is_near_hare(hare):
                         hare.change_condition()
+
             else:
                 print("Заяц убежал!")
             self.mod = "Бежать домой"
@@ -65,6 +66,8 @@ class Field:
         for hare in self.hares:
             if  not hare.mod:
                 f[hare.y][hare.x] = "Z"
+            else:
+                f[hare.y][hare.x] = "X"
         for row in f:
             print(*row)
 
@@ -75,7 +78,8 @@ class Game:
         self.hares = []
         self.__add_hares()
         self.field = Field(self.tiger, self.hares)
-        self.field.field_display()
+
+        self.run()
 
     def __add_hares(self):
         for i in range(2):
@@ -90,6 +94,17 @@ class Game:
                 if flag:
                     self.hares.append(hare)
                     break
+
+    def run(self):
+        while True:
+            self.field.field_display()
+            self.tiger.update_pozition(self.hares)
+            print()
+            if self.tiger.mod ==  "Бежать домой":
+                self.tiger.x = 0
+                self.tiger.y = 0
+                break
+        self.field.field_display()
 
 
 if __name__ == '__main__':
