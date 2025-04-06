@@ -1,7 +1,6 @@
 import random
-from dataclasses import field
-
 from settings import *
+
 class Tiger:
     def __init__(self):
         self.x = 0
@@ -109,11 +108,3 @@ class Game:
 
 if __name__ == '__main__':
     Game()
-
-
-
-
-
-
-
-
